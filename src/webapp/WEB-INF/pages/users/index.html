@@ -22,21 +22,32 @@
     </style>
 <body>
 
-<div>
+<th:block>
     <table>
         <tr>
             <th>Id</th>
+            <th>Username</th>
             <th>Имя</th>
             <th>Фамилия</th>
             <th>Возраст</th>
+            <th>Роль</th>
             <th colspan="3">Действие</th>
         </tr>
         <th:block th:each="user : ${users}">
             <tr>
                 <td th:text="${user.getId()}"></td>
+                <td th:text="${user.getUsername()}"></td>
                 <td th:text="${user.getName()}"></td>
                 <td th:text="${user.getLastName()}"></td>
                 <td th:text="${user.getAge()}"></td>
+<!--                <td th:text="${user.getRolesAsString()}"></td>-->
+                <td >
+                    <ul>
+                        <th:block th:each="role : ${user.getRoles()}">
+                            <li th:text="${role.getRole()}">role</li>
+                        </th:block>
+                    </ul>
+                </td>
                 <td><a th:href="@{/users/{id}(id=${user.getId()})}">смотреть</a></td>
                 <td>
                     <form th:method="delete" th:action="@{/users/{id}(id=${user.getId()})}">

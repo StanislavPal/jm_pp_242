@@ -6,12 +6,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>stas.paliutin</groupId>
-    <artifactId>jm_task_2_3_1</artifactId>
+    <artifactId>jm_pp_242_security</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <packaging>war</packaging>
 
-    <name>jm_task_2_3_1 Maven Webapp</name>
+    <name>jm_pp_242_security Maven Webapp</name>
     <url>http://www.example.com</url>
 
     <properties>
@@ -88,7 +88,7 @@
 
 
     <build>
-        <finalName>jm_task_2_3_1</finalName>
+        <finalName>jm_pp_242_security</finalName>
         <pluginManagement>
             <plugins>
 
@@ -98,7 +98,7 @@
                     <version>2.4</version>
                     <configuration>
                         <warSourceDirectory>src/webapp</warSourceDirectory>
-                        <warName>jm_task_2_3_1</warName>
+                        <warName>jm_pp_242_security</warName>
                         <failOnMissingWebXml>false</failOnMissingWebXml>
                     </configuration>
                 </plugin>

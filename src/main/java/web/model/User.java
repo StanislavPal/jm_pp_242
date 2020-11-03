@@ -4,7 +4,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,23 +19,32 @@ public class User implements UserDetails {
 
     private String name;
     private String lastName;
+    private int age;
+
+    private String username;
     private String password;
 
-    @ManyToMany()
-    private Set<Role> roles;
-    private int age;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
     public User() {}
 
-    public User(long id, String name, String lastName, int age) {
-        this(name, lastName, age);
-        this.id = id;
-    }
+//    public User(long id, String name, String lastName, int age, Set<Role> roles) {
+//        this(name, lastName, age, roles);
+//        this.id = id;
+//    }
 
-    public User(String name, String lastName, int age) {
+    public User(String name, String lastName, int age, String username, String password, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
         this.name = name;
         this.lastName = lastName;
         this.age = age;
+        this.roles = roles;
     }
 
     public long getId() {
@@ -90,7 +101,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return username;
     }
 
     @Override
@@ -117,6 +128,10 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -124,4 +139,8 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+//    public String getRolesAsString() {
+//        return roles.toString();
+//    }
 }
