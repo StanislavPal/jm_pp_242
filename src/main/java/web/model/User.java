@@ -4,7 +4,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,14 +37,14 @@ public class User implements UserDetails {
 //        this.id = id;
 //    }
 
-    public User(String name, String lastName, int age, String username, String password, Set<Role> roles) {
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.lastName = lastName;
-        this.age = age;
-        this.roles = roles;
-    }
+//    public User(String name, String lastName, int age, String username, String password, Set<Role> roles) {
+//        this.username = username;
+//        this.password = password;
+//        this.name = name;
+//        this.lastName = lastName;
+//        this.age = age;
+//        this.roles = roles;
+//    }
 
     public long getId() {
         return id;

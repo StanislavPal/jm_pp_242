@@ -27,6 +27,7 @@
         <tr>
             <th>Id</th>
             <th>Username</th>
+            <th>Password</th>
             <th>Имя</th>
             <th>Фамилия</th>
             <th>Возраст</th>
@@ -35,40 +36,54 @@
         </tr>
         <th:block th:each="user : ${users}">
             <tr>
-                <td th:text="${user.getId()}"></td>
-                <td th:text="${user.getUsername()}"></td>
-                <td th:text="${user.getName()}"></td>
-                <td th:text="${user.getLastName()}"></td>
-                <td th:text="${user.getAge()}"></td>
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.age}"></td>
 <!--                <td th:text="${user.getRolesAsString()}"></td>-->
                 <td >
                     <ul>
-                        <th:block th:each="role : ${user.getRoles()}">
-                            <li th:text="${role.getRole()}">role</li>
+                        <th:block th:each="role : ${user.roles}">
+                            <li th:text="${role.role}">role</li>
                         </th:block>
                     </ul>
                 </td>
-                <td><a th:href="@{/users/{id}(id=${user.getId()})}">смотреть</a></td>
+                <td><a th:href="@{/users/{id}(id=${user.id})}">смотреть</a></td>
                 <td>
-                    <form th:method="delete" th:action="@{/users/{id}(id=${user.getId()})}">
+                    <form th:method="delete" th:action="@{/users/{id}(id=${user.id})}">
                         <input type="submit" value="Удалить">
                     </form>
                 </td>
-                <td><a th:href="@{/users/{id}/edit(id=${user.getId()})}">редактировать</a></td>
+                <td><a th:href="@{/users/{id}/edit(id=${user.id})}">редактировать</a></td>
             </tr>
         </th:block>
     </table>
-
+    <br>
+    <br>
     <form method="post" action="/users">
-        <label for="name">Name</label>
+        <label for="username_label">Username: </label>
+        <input name="username" type="text" id="username_label">
+        <br/>
+
+        <label for="password_label">Password: </label>
+        <input name="password" type="text" id="password_label">
+        <br/>
+
+        <label for="confirm_password_label">Confirm password: </label>
+        <input name="confirm_password" type="text" id="confirm_password_label">
+        <br/>
+
+        <label for="name">Name: </label>
         <input name="name" type="text" id="name">
         <br/>
 
-        <label for="lastname">lastName</label>
+        <label for="lastname">Lastname: </label>
         <input name="lastName" type="text" id="lastname">
         <br/>
 
-        <label for="age">Age</label>
+        <label for="age">Age: </label>
         <input name="age" type="number" id="age">
         <br/>
 

@@ -1,5 +1,7 @@
 package web.dao;
 
+import web.model.Role;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;

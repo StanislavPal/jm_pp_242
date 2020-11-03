@@ -7,6 +7,8 @@ public interface Dao<T> {
 
     public T findOne(long id);
 
+    public T findOne(String keyNamedField);
+
     public void delete(T entity);
 
     public void deleteById(long entityId);
