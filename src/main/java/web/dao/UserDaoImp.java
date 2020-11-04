@@ -23,7 +23,7 @@ public class UserDaoImp extends AbstractJpaDao<User> implements Dao<User> {
     @Override
     public void deleteById( long entityId ){
         int id = entityManager.createQuery(
-                "delete User where id = :id", User.class)
+                "delete User u where u.id = :id")
                 .setParameter("id", entityId)
                 .executeUpdate();
     }
