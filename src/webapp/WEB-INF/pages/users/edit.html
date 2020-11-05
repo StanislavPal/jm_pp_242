@@ -7,26 +7,42 @@
 
 <div>
     <br/>
-    <form th:method="patch" th:action="@{/users/{id}(id=${user.getId()})}" th:object="${user}">
-        <label for="user-name-label">Username</label>
-        <input th:field="*{username}" type="text" id="user-name-label">
+    <form th:method="patch" th:action="@{/users/{id}(id=${user.id})}" th:object="${user}">
+        <label for="user_name_label">Username: </label>
+        <input th:field="*{username}" type="text" id="user_name_label">
         <br/>
 
-        <label for="name-label">Name</label>
-        <input th:field="*{name}" type="text" id="name-label">
+        <label for="pass_label">Password: </label>
+        <input th:field="*{password}" type="password" id="pass_label">
         <br/>
 
-        <label for="lastname-label">lastName</label>
-        <input th:field="*{lastName}" type="text" id="lastname-label">
+        <label for="confirm_pass_label">Confirm Password: </label>
+        <input th:field="*{confirmPassword}" type="password" id="confirm_pass_label">
         <br/>
 
-        <label for="age-label">Age</label>
-        <input th:field="*{age}" type="number" id="age-label">
+        <label for="name_label">Name: </label>
+        <input th:field="*{name}" type="text" id="name_label">
         <br/>
 
-        <label for="pass-label">Age</label>
-        <input th:field="*{password}" type="password" id="pass-label">
+        <label for="lastname_label">Lastname: </label>
+        <input th:field="*{lastName}" type="text" id="lastname_label">
         <br/>
+
+        <label for="age_label">Age: </label>
+        <input th:field="*{age}" type="number" id="age_label">
+        <br/>
+
+        Roles6:
+<!--        <th:block th:each="role : ${roles}">-->
+<!--            <p><input type="checkbox" name="roles_checkbox" th:value="${role.role}" th:text="${role.name}" th:checked="${user.roles.contains(${role})}"></p>-->
+<!--        </th:block>-->
+
+        <th:block th:each="role : ${roles}">
+            <p><input type="checkbox" name="roles_checkbox"
+                      th:value="${role.getKey().role}"
+                      th:text="${role.getKey().name}"
+                      th:checked="${role.getValue()}"></p>
+        </th:block>
 
         <input type="submit" value="Обновить">
     </form>

@@ -14,13 +14,22 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String role;
+    private String name;
 
-    public Role(Long id, String role) {
-        this.id = id;
-        this.role = role;
-    }
+//    public Role(Long id, String role) {
+//        this.id = id;
+//        this.role = role;
+//    }
 
     public Role() {
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.getClass() == Role.class) {
+            return id.equals( ( (Role) obj).id ) && role.equals( ( (Role) obj).role);
+        }
+        return false;
     }
 
     public Long getId() {
@@ -37,6 +46,14 @@ public class Role implements GrantedAuthority {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
