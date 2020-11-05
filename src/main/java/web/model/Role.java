@@ -53,6 +53,7 @@ public class Role implements GrantedAuthority {
     }
 
     public void setName(String name) {
+        setRole( ("ROLE_" + name).toUpperCase() );
         this.name = name;
     }
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый пользователь</title>
+</head>
+<body>
+<form method="post" action="/users">
+    <label for="username_label">Username: </label>
+    <input name="username" type="text" id="username_label">
+    <br/>
+
+    <label for="password_label">Password: </label>
+    <input name="password" type="password" id="password_label">
+    <br/>
+
+    <label for="confirm_password_label">Confirm Password: </label>
+    <input name="confirm_password" type="password" id="confirm_password_label">
+    <br/>
+
+    <label for="name">Name: </label>
+    <input name="name" type="text" id="name">
+    <br/>
+
+    <label for="lastname">Lastname: </label>
+    <input name="lastName" type="text" id="lastname">
+    <br/>
+
+    <label for="age">Age: </label>
+    <input name="age" type="number" id="age">
+    <br/>
+
+    <input type="submit" value="Добавить юзера">
+</form>
+</body>
+</html>

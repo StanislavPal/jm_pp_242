@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование роли</title>
+<body>
+
+<div>
+    <br/>
+    <form th:method="patch" th:action="@{/roles/{id}(id=${role.id})}" th:object="${role}">
+        <label for="name_label">Name: </label>
+        <input th:field="*{name}" type="text" id="name_label">
+        <br/>
+
+        <label for="role_label">Role: </label>
+        <input th:field="*{role}" type="text" id="role_label">
+        <br/>
+
+        <input type="submit" value="Обновить">
+    </form>
+</div>
+
+</body>
+</html>

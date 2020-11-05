@@ -85,12 +85,12 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age=" + age +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", confirmPassword='" + confirmPassword + '\'' +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
                 ", roles=" + roles +
                 '}';
     }
@@ -154,7 +154,4 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-//    public String getRolesAsString() {
-//        return roles.toString();
-//    }
 }

@@ -34,6 +34,11 @@ public class UsersController {
         return "users/index";
     }
 
+    @GetMapping("/new")
+    public String add() {
+        return "users/new";
+    }
+
     @GetMapping("/{id}")
     public String showById(@PathVariable("id") long id,
                            Model model) {

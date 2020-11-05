@@ -32,16 +32,12 @@
         <input th:field="*{age}" type="number" id="age_label">
         <br/>
 
-        Roles6:
-<!--        <th:block th:each="role : ${roles}">-->
-<!--            <p><input type="checkbox" name="roles_checkbox" th:value="${role.role}" th:text="${role.name}" th:checked="${user.roles.contains(${role})}"></p>-->
-<!--        </th:block>-->
-
+        Roles:
         <th:block th:each="role : ${roles}">
             <p><input type="checkbox" name="roles_checkbox"
-                      th:value="${role.getKey().role}"
-                      th:text="${role.getKey().name}"
-                      th:checked="${role.getValue()}"></p>
+                      th:value="${role.key.role}"
+                      th:text="${role.key.name}"
+                      th:checked="${role.value}"></p>
         </th:block>
 
         <input type="submit" value="Обновить">

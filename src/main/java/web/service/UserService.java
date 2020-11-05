@@ -6,8 +6,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.Dao;
-import web.dao.RoleDaoImp;
-import web.dao.UserDaoImp;
 import web.model.Role;
 import web.model.User;
 
