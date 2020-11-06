@@ -2,7 +2,7 @@ package web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.Dao;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class UserService{
+public class UserService {
 
     @Autowired
     @Qualifier("userDaoImp")
@@ -24,8 +24,8 @@ public class UserService{
     @Qualifier("roleDaoImp")
     private Dao<Role> roleDao;
 
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
     public List<User> findAll() {
@@ -49,10 +49,15 @@ public class UserService{
 
     @Transactional
     public void create(User user) {
-//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword( passwordEncoder.encode( user.getPassword() ) );
         Set<Role> roles = new HashSet<>();
         roles.add(roleDao.findOne("ROLE_USER"));
         user.setRoles(roles);
         userDao.create(user);
+    }
+
+    @Transactional
+    public User findOne(String username) {
+        return userDao.findOne(username);
     }
 }
