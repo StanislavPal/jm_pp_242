@@ -26,7 +26,7 @@ public class User implements UserDetails {
     @Transient
     private String confirmPassword;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
@@ -34,20 +34,6 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
 
     public User() {}
-
-//    public User(long id, String name, String lastName, int age, Set<Role> roles) {
-//        this(name, lastName, age, roles);
-//        this.id = id;
-//    }
-
-//    public User(String name, String lastName, int age, String username, String password, Set<Role> roles) {
-//        this.username = username;
-//        this.password = password;
-//        this.name = name;
-//        this.lastName = lastName;
-//        this.age = age;
-//        this.roles = roles;
-//    }
 
     public long getId() {
         return id;

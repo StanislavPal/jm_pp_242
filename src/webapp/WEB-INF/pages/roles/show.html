@@ -5,8 +5,11 @@
     <title>Role</title>
 </head>
 <body>
-    <p th:text="${role.id}">Value</p>
-    <p th:text="${role.name}">Value</p>
-    <p th:text="${role.role}">Value</p>
+<div th:object="${role}">
+    <p>  Id: <span th:text="*{id}">1</span>.</p>
+    <p>Role: <span th:text="*{role}">ROLE_USER</span>.</p>
+</div>
+<!--    <p th:text="${role.id}">Value</p>-->
+<!--    <p th:text="${role.role}">Value</p>-->
 </body>
 </html>

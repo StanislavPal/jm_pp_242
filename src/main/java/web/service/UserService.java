@@ -21,8 +21,7 @@ public class UserService {
     private Dao<User> userDao;
 
     @Autowired
-    @Qualifier("roleDaoImp")
-    private Dao<Role> roleDao;
+    private RoleService roleService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -50,9 +49,13 @@ public class UserService {
     @Transactional
     public void create(User user) {
         user.setPassword( passwordEncoder.encode( user.getPassword() ) );
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleDao.findOne("ROLE_USER"));
-        user.setRoles(roles);
+        Set<Role> dbRoles = new HashSet<>();
+        if (user.getRoles() != null) {
+            for (Role role : user.getRoles() ) {
+                dbRoles.add(roleService.findOne( role.getRole() ));
+            }
+        }
+        user.setRoles(dbRoles);
         userDao.create(user);
     }
 

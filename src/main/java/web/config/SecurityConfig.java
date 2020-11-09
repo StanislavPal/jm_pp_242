@@ -1,4 +1,4 @@
-package web.config.security;
+package web.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import web.config.handler.LoginSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -43,9 +44,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("j_username")
                 .passwordParameter("j_password")
                 // даем доступ к форме логина всем
-                .permitAll();
-
-        http.logout()
+                .permitAll()
+                //Настройка логаута
+                .and()
+                .logout()
                 // разрешаем делать логаут всем
                 .permitAll()
                 // указываем URL логаута
@@ -53,17 +55,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // указываем URL при удачном логауте
                 .logoutSuccessUrl("/login?logout")
                 //выклчаем кроссдоменную секьюрность (на этапе обучения неважна)
-                .and().csrf().disable();
-
-        http
-                // делаем страницу регистрации недоступной для авторизированных пользователей
+                .and().csrf().disable()
+                //Разрешения для аутентифицированных пользователей
                 .authorizeRequests()
                 //страницы аутентификаци доступна всем
                 .antMatchers("/login").anonymous()
                 // защищенные URL
                 //страница пользователя доступна только ролям мользователь и админ.
                 .antMatchers("/user").hasAnyRole("USER", "ADMIN")
-                //страницы доступнуе только админам
+                //страницы доступные только админам
                 .antMatchers("/admin/**").access("hasAnyRole('ADMIN')")
                 .antMatchers("/hello").access("hasAnyRole('ADMIN')").anyRequest().authenticated();
     }

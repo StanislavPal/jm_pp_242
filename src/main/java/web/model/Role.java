@@ -14,14 +14,12 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String role;
-    private String name;
-
-//    public Role(Long id, String role) {
-//        this.id = id;
-//        this.role = role;
-//    }
 
     public Role() {
+    }
+
+    public Role(String role) {
+        this.role = role.toUpperCase();
     }
 
     @Override
@@ -45,20 +43,19 @@ public class Role implements GrantedAuthority {
     }
 
     public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        setRole( ("ROLE_" + name).toUpperCase() );
-        this.name = name;
+        this.role = role.toUpperCase();
     }
 
     @Override
     public String getAuthority() {
         return role;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

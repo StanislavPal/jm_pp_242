@@ -36,7 +36,7 @@
         <th:block th:each="role : ${roles}">
             <p><input type="checkbox" name="roles_checkbox"
                       th:value="${role.key.role}"
-                      th:text="${role.key.name}"
+                      th:text="${role.key.role}"
                       th:checked="${role.value}"></p>
         </th:block>
 

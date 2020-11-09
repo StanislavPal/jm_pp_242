@@ -1,4 +1,4 @@
-package web.config.security;
+package web.config.handler;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;

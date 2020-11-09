@@ -7,13 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import web.model.Role;
 import web.model.User;
 import web.service.RoleService;
-import web.service.UserDetailsServiceImpl;
 import web.service.UserService;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import web.util.Logger;
 
 @Controller
 @RequestMapping("/admin/users")
@@ -21,22 +16,25 @@ public class UsersController {
 
     private UserService userService;
     private RoleService roleService;
+    private Logger logger;
 
     @Autowired
-    public UsersController(UserService userService, RoleService roleService) {
+    public UsersController(UserService userService, RoleService roleService, Logger logger) {
         this.roleService = roleService;
         this.userService = userService;
+        this.logger = logger;
     }
 
     @GetMapping()
     public String index(Model model) {
-        System.out.println("==========get index============");
+        logger.info("index", User.class);
         model.addAttribute("users", userService.findAll());
         return "users/index";
     }
 
     @GetMapping("/new")
-    public String add() {
+    public String add(Model model) {
+        model.addAttribute("roles", roleService.findAllWithUse( roleService.findOne("ROLE_USER") ) );
         return "users/new";
     }
 
@@ -50,21 +48,9 @@ public class UsersController {
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") long id,
                        Model model) {
-        List<Role> roles = roleService.findAll();
         User user = userService.getById(id);
 
-        HashMap<Role, Boolean> hashMap = new HashMap<>();
-        for (Role role : roleService.findAll() ) {
-            Boolean checked = false;
-            for (Role roleOfUser : user.getRoles() ) {
-                if (role.equals(roleOfUser)) {
-                    checked = true;
-                    break;
-                }
-            }
-            hashMap.put(role, checked);
-        }
-        model.addAttribute("roles", hashMap );
+        model.addAttribute("roles", roleService.findAllWithUse( user.getRoles().toArray(new Role[0]) ) );
         model.addAttribute("user", user );
         return "users/edit";
     }
@@ -72,28 +58,28 @@ public class UsersController {
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") long id,
                          Model model) {
+        logger.info("delete user", id);
         userService.delete(id);
         return "redirect:/admin/users";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("user") User user) {
+    public String create(@ModelAttribute("user") User user,
+                         @RequestParam(value = "roles_checkbox", required = false) String[] roles) {
+        user.setRoles( roleService.findByRoles(roles) );
+        logger.info("post", user);
         userService.create(user);
-        System.out.println("-----post--------");
-        System.out.println(user);
+//        System.out.println("-----post+++++");
+//        System.out.println(user);
+//        System.out.println("+++++post-----");
         return "redirect:/admin/users";
     }
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") User user,
-                         @RequestParam(value = "roles_checkbox", required = false) String[] rolesArr) {
-        Set<Role> roles = new HashSet<>();
-        if (rolesArr != null) {
-            for (String roleName : rolesArr) {
-                roles.add(roleService.findOne(roleName));
-            }
-        }
-        user.setRoles(roles);
+                         @RequestParam(value = "roles_checkbox", required = false) String[] roles) {
+        user.setRoles( roleService.findByRoles(roles) );
+        logger.info("update", user);
         userService.update(user);
         return "redirect:/admin/users";
     }
