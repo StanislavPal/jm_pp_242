@@ -1,16 +1,28 @@
 package web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import web.model.User;
+import web.service.UserService;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class HelloController {
+
+	UserService userService;
+
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
 	@RequestMapping(value = "hello", method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
@@ -27,4 +39,15 @@ public class HelloController {
         return "login";
     }
 
+    @GetMapping("/admin")
+	public String adminPage() {
+		return "admin";
+	}
+
+    @GetMapping("/user")
+	public String userPage(Principal principal, ModelMap model) {
+		User user = userService.findOne( principal.getName() );
+		model.addAttribute("user", user);
+		return "user";
+	}
 }

@@ -8,7 +8,7 @@ import web.model.Role;
 import web.service.RoleService;
 
 @Controller
-@RequestMapping("/roles")
+@RequestMapping("/admin/roles")
 public class RolesController {
 
     private RoleService roleService;
@@ -48,7 +48,7 @@ public class RolesController {
     public String delete(@PathVariable("id") long id,
                          Model model) {
         roleService.delete(id);
-        return "redirect:/roles";
+        return "redirect:/admin/roles";
     }
 
     @PostMapping()
@@ -57,12 +57,12 @@ public class RolesController {
         role.setName(name);
         roleService.create(role);
         System.out.println("-----post-role-create-------: " + role);
-        return "redirect:/roles";
+        return "redirect:/admin/roles";
     }
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("role") Role role) {
         roleService.update(role);
-        return "redirect:/roles";
+        return "redirect:/admin/roles";
     }
 }

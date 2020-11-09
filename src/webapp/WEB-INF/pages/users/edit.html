@@ -7,7 +7,7 @@
 
 <div>
     <br/>
-    <form th:method="patch" th:action="@{/users/{id}(id=${user.id})}" th:object="${user}">
+    <form th:method="patch" th:action="@{/admin/users/{id}(id=${user.id})}" th:object="${user}">
         <label for="user_name_label">Username: </label>
         <input th:field="*{username}" type="text" id="user_name_label">
         <br/>

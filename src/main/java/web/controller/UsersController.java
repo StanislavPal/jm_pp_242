@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/admin/users")
 public class UsersController {
 
     private UserService userService;
@@ -73,7 +73,7 @@ public class UsersController {
     public String delete(@PathVariable("id") long id,
                          Model model) {
         userService.delete(id);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     @PostMapping()
@@ -81,7 +81,7 @@ public class UsersController {
         userService.create(user);
         System.out.println("-----post--------");
         System.out.println(user);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     @PatchMapping("/{id}")
@@ -95,6 +95,6 @@ public class UsersController {
         }
         user.setRoles(roles);
         userService.update(user);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 }

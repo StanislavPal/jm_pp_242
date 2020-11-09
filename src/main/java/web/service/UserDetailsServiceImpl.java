@@ -26,7 +26,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 //     Для создания UserDetails используется интерфейс UserDetailsService, с единственным методом:
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userDao.findOne(username);
+        User user = userDao.findOne(username);
+        if (user == null) {
+            throw new UsernameNotFoundException( String.format("User '%s' not found!", username) );
+        }
+        return user;
     }
 /* end ver1 */
 

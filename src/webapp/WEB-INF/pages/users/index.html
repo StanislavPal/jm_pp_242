@@ -11,7 +11,7 @@
         }
 
         td, th {
-            border: 1px solid #dddddd;
+            border: 1px solid #ffffff;
             text-align: left;
             padding: 8px;
         }
@@ -49,18 +49,20 @@
                         </th:block>
                     </ul>
                 </td>
-                <td><a th:href="@{/users/{id}(id=${user.id})}">смотреть</a></td>
+                <td><a th:href="@{/admin/users/{id}(id=${user.id})}">смотреть</a></td>
                 <td>
-                    <form th:method="delete" th:action="@{/users/{id}(id=${user.id})}">
+                    <form th:method="delete" th:action="@{/admin/users/{id}(id=${user.id})}">
                         <input type="submit" value="Удалить">
                     </form>
                 </td>
-                <td><a th:href="@{/users/{id}/edit(id=${user.id})}">редактировать</a></td>
+                <td><a th:href="@{/admin/users/{id}/edit(id=${user.id})}">редактировать</a></td>
             </tr>
         </th:block>
     </table>
-    <p><a href="/users/new">Добавить нового пользователя</a></p>
-    <p><a href="/roles">Список ролей</a></p>
-    <p><a href="/roles/new">Добавить новую роль</a></p>
+    <p><a href="/admin/users/new">Добавить нового пользователя</a></p>
+    <p><a href="/admin/roles">Список ролей</a></p>
+    <p><a href="/admin/roles/new">Добавить новую роль</a></p>
+    <div th:replace="footer :: logout"></div>
+    <div th:insert="footer :: copy"></div>
 </body>
 </html>

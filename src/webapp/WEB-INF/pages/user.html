@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<code>
+    5. Пользователь с ролью user должен иметь доступ только к своей домашней странице /user, где выводятся его данные.
+    Доступ к этой странице должен быть только у пользователей с ролью user и admin.
+    Не забывайте про несколько ролей у пользователя!
+</code>
+<p>Доброго дня, <span th:text="${user.name}+' '+${user.lastName}"></span></p>
+<p><a href="/admin/users">Список пользователей</a></p>
+<p><a href="/admin/roles">Список ролей</a></p>
+<div th:replace="footer :: logout"></div>
+<div th:insert="footer :: copy"></div>
+</body>
+</html>

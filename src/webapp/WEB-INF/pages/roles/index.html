@@ -35,16 +35,18 @@
                 <td th:text="${role.id}"></td>
                 <td th:text="${role.role}"></td>
                 <td th:text="${role.name}"></td>
-                <td><a th:href="@{/roles/{id}(id=${role.id})}">смотреть</a></td>
+                <td><a th:href="@{/admin/roles/{id}(id=${role.id})}">смотреть</a></td>
                 <td>
-                    <form th:method="delete" th:action="@{/roles/{id}(id=${role.id})}">
+                    <form th:method="delete" th:action="@{/admin/roles/{id}(id=${role.id})}">
                         <input type="submit" value="Удалить">
                     </form>
                 </td>
-                <td><a th:href="@{/roles/{id}/edit(id=${role.id})}">редактировать</a></td>
+                <td><a th:href="@{/admin/roles/{id}/edit(id=${role.id})}">редактировать</a></td>
             </tr>
         </th:block>
     </table>
-    <a href="/roles/new">Добавить новую роль</a>
+    <a href="/admin/roles/new">Добавить новую роль</a>
+    <div th:replace="footer :: logout"></div>
+    <div th:insert="footer :: copy"></div>
 </body>
 </html>

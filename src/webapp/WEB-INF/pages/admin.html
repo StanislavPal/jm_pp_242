@@ -6,12 +6,7 @@
     <title></title>
 </head>
 <body>
-<div>
-    <th:block th:each="msg : ${messages}">
-        <h1 th:text="${msg}"></h1>
-    </th:block>
-</div>
-
+<code>Все CRUD-операции и страницы для них должны быть доступны только пользователю с ролью admin по url: /admin/.</code>
 <p><a href="/admin/users">Список пользователей</a></p>
 <p><a href="/admin/roles">Список ролей</a></p>
 <div th:replace="footer :: logout"></div>
