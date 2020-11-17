@@ -60,7 +60,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //страницы аутентификаци доступна всем
                 .antMatchers("/login").anonymous()
-                .antMatchers("/thymeleaf_security_test").anonymous()
                 // защищенные URL
                 //страница пользователя доступна только ролям мользователь и админ.
                 .antMatchers("/user").hasAnyRole("USER", "ADMIN")

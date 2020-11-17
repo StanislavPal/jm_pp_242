@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,16 +10,6 @@
     <th:block th:each="msg : ${messages}">
         <h1 th:text="${msg}"></h1>
     </th:block>
-</div>
-
-<div sec:authorize="isAuthenticated()">
-    This content is only shown to authenticated users.
-</div>
-<div sec:authorize="hasRole('ROLE_ADMIN')">
-    This content is only shown to administrators.
-</div>
-<div sec:authorize="hasRole('ROLE_USER', 'ROLE_ADMIN')">
-    This content is only shown to users and admins.
 </div>
 
 <p><a href="/admin/users">Список пользователей</a></p>

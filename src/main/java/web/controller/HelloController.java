@@ -50,11 +50,4 @@ public class HelloController {
 		model.addAttribute("user", user);
 		return "user";
 	}
-
-	@GetMapping("/thymeleaf_security_test")
-	public String thymeleafTestSecurityPage(Principal principal, ModelMap model) {
-		User user = userService.findOne( principal.getName() );
-		model.addAttribute("user", user);
-		return "thymeleaf";
-	}
 }
