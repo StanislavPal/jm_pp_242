@@ -69,9 +69,6 @@ public class UsersController {
         user.setRoles( roleService.findByRoles(roles) );
         logger.info("post", user);
         userService.create(user);
-//        System.out.println("-----post+++++");
-//        System.out.println(user);
-//        System.out.println("+++++post-----");
         return "redirect:/admin/users";
     }
 

@@ -1,4 +1,4 @@
-package web.config;
+package web.security;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import web.config.handler.LoginSuccessHandler;
+import web.security.handler.LoginSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -60,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //страницы аутентификаци доступна всем
                 .antMatchers("/login").anonymous()
+                .antMatchers("/thymeleaf_security_test").anonymous()
                 // защищенные URL
                 //страница пользователя доступна только ролям мользователь и админ.
                 .antMatchers("/user").hasAnyRole("USER", "ADMIN")
