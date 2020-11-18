@@ -51,7 +51,7 @@
                 </td>
                 <td><a th:href="@{/admin/users/{id}(id=${user.id})}">смотреть</a></td>
                 <td>
-                    <form th:method="delete" th:action="@{/admin/users/{id}(id=${user.id})}">
+                    <form th:method="post" th:action="@{/admin/users/{id}/delete(id=${user.id})}">
                         <input type="submit" value="Удалить">
                     </form>
                 </td>

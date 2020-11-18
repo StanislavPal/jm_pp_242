@@ -44,7 +44,7 @@ public class RolesController {
         return "roles/edit";
     }
 
-    @DeleteMapping("/{id}")
+    @PostMapping("/{id}/delete")
     public String delete(@PathVariable("id") long id,
                          Model model) {
         roleService.delete(id);
@@ -58,7 +58,7 @@ public class RolesController {
         return "redirect:/admin/roles";
     }
 
-    @PatchMapping("/{id}")
+    @PostMapping("/{id}")
     public String update(@ModelAttribute("role") Role role) {
         roleService.update(role);
         return "redirect:/admin/roles";

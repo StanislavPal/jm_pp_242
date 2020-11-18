@@ -55,7 +55,7 @@ public class UsersController {
         return "users/edit";
     }
 
-    @DeleteMapping("/{id}")
+    @PostMapping("/{id}/delete")
     public String delete(@PathVariable("id") long id,
                          Model model) {
         logger.info("delete user", id);
@@ -72,7 +72,7 @@ public class UsersController {
         return "redirect:/admin/users";
     }
 
-    @PatchMapping("/{id}")
+    @PostMapping("/{id}")
     public String update(@ModelAttribute("user") User user,
                          @RequestParam(value = "roles_checkbox", required = false) String[] roles) {
         user.setRoles( roleService.findByRoles(roles) );

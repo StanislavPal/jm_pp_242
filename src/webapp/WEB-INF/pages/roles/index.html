@@ -34,7 +34,7 @@
                 <td th:text="${role.role}"></td>
                 <td><a th:href="@{/admin/roles/{id}(id=${role.id})}">смотреть</a></td>
                 <td>
-                    <form th:method="delete" th:action="@{/admin/roles/{id}(id=${role.id})}">
+                    <form th:method="post" th:action="@{/admin/roles/{id}/delete(id=${role.id})}">
                         <input type="submit" value="Удалить">
                     </form>
                 </td>
