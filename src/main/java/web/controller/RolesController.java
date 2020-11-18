@@ -40,6 +40,10 @@ public class RolesController {
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") long id,
                        Model model) {
+        Role role = roleService.getById(id);
+        if (role == null) {
+            return "redirect:/admin/roles";
+        }
         model.addAttribute("role", roleService.getById(id) );
         return "roles/edit";
     }

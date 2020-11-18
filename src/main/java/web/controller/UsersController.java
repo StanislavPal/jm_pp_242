@@ -49,6 +49,9 @@ public class UsersController {
     public String edit(@PathVariable("id") long id,
                        Model model) {
         User user = userService.getById(id);
+        if (user == null) {
+            return "redirect:/admin/users";
+        }
 
         model.addAttribute("roles", roleService.findAllWithUse( user.getRoles().toArray(new Role[0]) ) );
         model.addAttribute("user", user );
