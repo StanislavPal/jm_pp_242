@@ -12,30 +12,6 @@ import web.model.User;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-///*    ver1 */
-//    @Autowired
-//    @Qualifier("userDaoImp")
-//    private final Dao<User> userDao;
-//
-//    public UserDetailsServiceImpl(Dao<User> userDao) {
-//        this.userDao = userDao;
-//    }
-//
-////     «Пользователь» – это просто Object. В большинстве случаев он может быть
-////      приведен к классу UserDetails.
-////     Для создания UserDetails используется интерфейс UserDetailsService, с единственным методом:
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User user = userDao.findOne(username);
-//        if (user == null) {
-//            throw new UsernameNotFoundException( String.format("User '%s' not found!", username) );
-//        }
-//        return user;
-//    }
-///* end ver1 */
-
-
-/*    ver2 */
     private final UserService userService;
 
     @Autowired
@@ -50,11 +26,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User user = userService.findOne(username);
-        System.out.println(user);
         if (user == null) {
             throw new UsernameNotFoundException( String.format("User '%s' not found!", username) );
         }
         return user;
     }
-/* end ver2 */
 }
