@@ -46,7 +46,7 @@ public class RoleService {
         roleDao.create(role);
     }
 
-    public Set<Role> findByRoles(String[] roleNames) {
+    public Set<Role> findByNames(String[] roleNames) {
         Set<Role> dbRoles = new HashSet<>();
         if (roleNames != null) {
             for (String roleName : roleNames) {
@@ -54,21 +54,6 @@ public class RoleService {
             }
         }
         return dbRoles;
-    }
-
-    public Map<Role, Boolean> findAllWithUse(Role... roles) {
-        HashMap<Role, Boolean> hashMap = new HashMap<>();
-        for (Role role : findAll() ) {
-            Boolean checked = false;
-            for (Role usedRole : roles ) {
-                if (role.equals(usedRole)) {
-                    checked = true;
-                    break;
-                }
-            }
-            hashMap.put(role, checked);
-        }
-        return hashMap;
     }
 
 }

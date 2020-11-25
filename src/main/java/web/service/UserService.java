@@ -43,19 +43,17 @@ public class UserService {
 
     @Transactional
     public void update(User user) {
+        if(user.getPassword().equals("")) {
+            user.setPassword( getById( user.getId() ).getPassword() );
+        } else {
+            user.setPassword( passwordEncoder.encode( user.getPassword() ) );
+        }
         userDao.update(user);
     }
 
     @Transactional
     public void create(User user) {
         user.setPassword( passwordEncoder.encode( user.getPassword() ) );
-        Set<Role> dbRoles = new HashSet<>();
-        if (user.getRoles() != null) {
-            for (Role role : user.getRoles() ) {
-                dbRoles.add(roleService.findOne( role.getRole() ));
-            }
-        }
-        user.setRoles(dbRoles);
         userDao.create(user);
     }
 

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import web.model.Role;
 import web.model.User;
 import web.service.RoleService;
 import web.service.UserService;
@@ -34,7 +33,8 @@ public class UsersController {
 
     @GetMapping("/new")
     public String add(Model model) {
-        model.addAttribute("roles", roleService.findAllWithUse( roleService.findOne("ROLE_USER") ) );
+        model.addAttribute("roles", roleService.findAll() );
+        model.addAttribute("user", new User().setRole( roleService.findOne("ROLE_USER") ) );
         return "users/new";
     }
 
@@ -53,7 +53,8 @@ public class UsersController {
             return "redirect:/admin/users";
         }
 
-        model.addAttribute("roles", roleService.findAllWithUse( user.getRoles().toArray(new Role[0]) ) );
+        user.setPassword("");
+        model.addAttribute("roles", roleService.findAll() );
         model.addAttribute("user", user );
         return "users/edit";
     }
@@ -69,7 +70,7 @@ public class UsersController {
     @PostMapping()
     public String create(@ModelAttribute("user") User user,
                          @RequestParam(value = "roles_checkbox", required = false) String[] roles) {
-        user.setRoles( roleService.findByRoles(roles) );
+        user.setRoles( roleService.findByNames(roles) );
         logger.info("post", user);
         userService.create(user);
         return "redirect:/admin/users";
@@ -78,7 +79,7 @@ public class UsersController {
     @PostMapping("/{id}")
     public String update(@ModelAttribute("user") User user,
                          @RequestParam(value = "roles_checkbox", required = false) String[] roles) {
-        user.setRoles( roleService.findByRoles(roles) );
+        user.setRoles( roleService.findByNames(roles) );
         logger.info("update", user);
         userService.update(user);
         return "redirect:/admin/users";

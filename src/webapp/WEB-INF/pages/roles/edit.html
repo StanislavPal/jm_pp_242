@@ -9,7 +9,7 @@
     <br/>
     <form th:method="post" th:action="@{/admin/roles/{id}(id=${role.id})}" th:object="${role}">
         <label for="role_label">Role: </label>
-        <input th:field="*{role}" type="text" id="role_label">
+        <input th:field="*{name}" type="text" id="role_label">
         <br/>
 
         <input type="submit" value="Обновить">
