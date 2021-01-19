@@ -7,17 +7,17 @@
 
 <div>
     <br/>
-    <form th:method="patch" th:action="@{/admin/users/{id}(id=${user.id})}" th:object="${user}">
+    <form th:method="post" th:action="@{/admin/users/{id}(id=${user.id})}" th:object="${user}">
         <label for="user_name_label">Username: </label>
         <input th:field="*{username}" type="text" id="user_name_label">
         <br/>
 
         <label for="pass_label">Password: </label>
-        <input th:field="*{password}" type="hidden" id="pass_label">
+        <input th:field="*{password}" type="text" id="pass_label">
         <br/>
 
         <label for="confirm_pass_label">Confirm Password: </label>
-        <input th:field="*{confirmPassword}" type="hidden" id="confirm_pass_label">
+        <input name="confirm_password" type="text" id="confirm_pass_label">
         <br/>
 
         <label for="name_label">Name: </label>
@@ -35,9 +35,9 @@
         Roles:
         <th:block th:each="role : ${roles}">
             <p><input type="checkbox" name="roles_checkbox"
-                      th:value="${role.key.role}"
-                      th:text="${role.key.role}"
-                      th:checked="${role.value}"></p>
+                      th:value="${role.name}"
+                      th:text="${role.name}"
+                      th:checked="${user.roles.contains(role)}"></p>
         </th:block>
 
         <input type="submit" value="Обновить">

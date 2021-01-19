@@ -16,17 +16,22 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "age")
     private int age;
 
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "password")
     private String password;
 
-    @Transient
-    private String confirmPassword;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
@@ -73,7 +78,6 @@ public class User implements UserDetails {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", confirmPassword='" + confirmPassword + '\'' +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
@@ -120,14 +124,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -140,4 +136,8 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public User setRole(Role role) {
+        roles.add(role);
+        return this;
+    }
 }

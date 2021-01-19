@@ -19,7 +19,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService; // сервис, с помощью которого тащим пользователя
     private final LoginSuccessHandler loginSuccessHandler; // класс, в котором описана логика перенаправления пользователей по ролям
 
-    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService, LoginSuccessHandler loginSuccessHandler) {
+    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService,
+                          LoginSuccessHandler loginSuccessHandler) {
         this.userDetailsService = userDetailsService;
         this.loginSuccessHandler = loginSuccessHandler;
     }
@@ -33,9 +34,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
+        http
+                //Разрешения для аутентифицированных пользователей
+                .authorizeRequests()
+                //страницы аутентификаци доступна всем
+                .antMatchers("/login").anonymous()
+                // защищенные URL
+                //страница пользователя доступна только ролям мользователь и админ.
+                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
+                //страницы доступные только админам
+                .antMatchers("/admin/**").access("hasAnyRole('ADMIN')")
+                .antMatchers("/hello").access("hasAnyRole('ADMIN')").anyRequest().authenticated()
+                .and()
+                .formLogin()
                 // указываем страницу с формой логина
-                .loginPage("/login")
+//                .loginPage("/login")
                 //указываем логику обработки при логине
                 .successHandler(new LoginSuccessHandler())
                 // указываем action с формы логина
@@ -55,18 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // указываем URL при удачном логауте
                 .logoutSuccessUrl("/login?logout")
                 //выклчаем кроссдоменную секьюрность (на этапе обучения неважна)
-                .and().csrf().disable()
-                //Разрешения для аутентифицированных пользователей
-                .authorizeRequests()
-                //страницы аутентификаци доступна всем
-                .antMatchers("/login").anonymous()
-                .antMatchers("/img/**").anonymous()
-                // защищенные URL
-                //страница пользователя доступна только ролям мользователь и админ.
-                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
-                //страницы доступные только админам
-                .antMatchers("/admin/**").access("hasAnyRole('ADMIN')")
-                .antMatchers("/hello").access("hasAnyRole('ADMIN')").anyRequest().authenticated();
+                .and().csrf().disable();
     }
 
     @Bean
