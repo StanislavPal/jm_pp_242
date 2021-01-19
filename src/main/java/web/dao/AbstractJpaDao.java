@@ -1,7 +1,5 @@
 package web.dao;
 
-import web.model.Role;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -24,8 +22,7 @@ public abstract class AbstractJpaDao<T> implements Dao<T> {
 
     @Override
     public List< T > findAll(){
-        return entityManager.createQuery( "from " + clazz.getName() )
-                .getResultList();
+        return entityManager.createQuery("from " + clazz.getName(), clazz).getResultList();
     }
 
     @Override

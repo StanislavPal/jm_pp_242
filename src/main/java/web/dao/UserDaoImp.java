@@ -1,7 +1,6 @@
 package web.dao;
 
 import org.springframework.stereotype.Repository;
-import web.model.Role;
 import web.model.User;
 
 @Repository
